@@ -105,7 +105,11 @@ export default function ArtistList() {
                   <span className="text-gray-400 text-xs">K-pop artiest</span>
                 </div>
               </div>
-              <button className="text-gray-400 hover:text-pink-400 transition-colors p-1">
+              <button
+                className="text-gray-400 hover:text-pink-400 transition-colors p-1"
+                title="Voeg toe aan favorieten"
+                aria-label="Voeg toe aan favorieten"
+              >
                 <Heart className="h-5 w-5" />
               </button>
             </div>
