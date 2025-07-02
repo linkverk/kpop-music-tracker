@@ -4,6 +4,7 @@ import AddArtistForm from "./components/AddArtistForm";
 import ArtistList from "./components/ArtistList";
 import { Music, Heart, Calendar, Users } from "lucide-react";
 import { useState } from "react";
+import "./App.css";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('artists');
