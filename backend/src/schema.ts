@@ -26,6 +26,13 @@ export const typeDefs = gql`
     isActive: Boolean!
     createdAt: String!
     updatedAt: String!
+    _count: ArtistCount
+  }
+
+  type ArtistCount {
+    members: Int!
+    albums: Int!
+    tracks: Int!
   }
 
   type Member {
@@ -50,6 +57,11 @@ export const typeDefs = gql`
     tracks: [Track!]
     coverUrl: String
     createdAt: String!
+    _count: AlbumCount
+  }
+
+  type AlbumCount {
+    tracks: Int!
   }
 
   type Track {
@@ -68,8 +80,10 @@ export const typeDefs = gql`
     id: ID!
     username: String!
     email: String!
+    profileImageUrl: String
     favorites: [Favorite!]!
     createdAt: String!
+    updatedAt: String!
   }
 
   type Favorite {
@@ -81,14 +95,26 @@ export const typeDefs = gql`
     createdAt: String!
   }
 
+  type Statistics {
+    artists: Int!
+    albums: Int!
+    tracks: Int!
+    users: Int!
+  }
+
+  type AuthPayload {
+    token: String!
+    user: User!
+  }
+
   # Queries
   type Query {
     # Artist queries
-    artists: [Artist!]!
+    artists(skip: Int, take: Int): [Artist!]!
     artist(id: ID!): Artist
     
     # Album queries
-    albums: [Album!]!
+    albums(skip: Int, take: Int): [Album!]!
     album(id: ID!): Album
     albumsByArtist(artistId: ID!): [Album!]!
     
@@ -103,6 +129,17 @@ export const typeDefs = gql`
     # User queries
     user(id: ID!): User
     me: User
+    
+    # Search queries
+    searchArtists(query: String!): [Artist!]!
+    searchAlbums(query: String!): [Album!]!
+    searchTracks(query: String!): [Track!]!
+    
+    # Recent releases
+    recentReleases(take: Int): [Album!]!
+    
+    # Statistics
+    statistics: Statistics!
   }
 
   # Mutations
@@ -114,15 +151,23 @@ export const typeDefs = gql`
     
     # Album mutations
     createAlbum(input: CreateAlbumInput!): Album!
+    updateAlbum(id: ID!, input: UpdateAlbumInput!): Album
+    deleteAlbum(id: ID!): Boolean!
     
     # Track mutations
     createTrack(input: CreateTrackInput!): Track!
+    updateTrack(id: ID!, input: UpdateTrackInput!): Track
+    deleteTrack(id: ID!): Boolean!
     
     # Member mutations
     createMember(input: CreateMemberInput!): Member!
+    updateMember(id: ID!, input: UpdateMemberInput!): Member
+    deleteMember(id: ID!): Boolean!
     
     # User mutations
-    createUser(username: String!, email: String!): User!
+    createUser(username: String!, email: String!, password: String!): User!
+    updateUser(id: ID!, input: UpdateUserInput!): User
+    login(email: String!, password: String!): AuthPayload!
     
     # Favorite mutations
     addFavorite(input: AddFavoriteInput!): Favorite
@@ -155,6 +200,14 @@ export const typeDefs = gql`
     coverUrl: String
   }
 
+  input UpdateAlbumInput {
+    title: String
+    koreanTitle: String
+    releaseDate: String
+    type: AlbumType
+    coverUrl: String
+  }
+
   input CreateTrackInput {
     title: String!
     koreanTitle: String
@@ -166,6 +219,15 @@ export const typeDefs = gql`
     musicVideoUrl: String
   }
 
+  input UpdateTrackInput {
+    title: String
+    koreanTitle: String
+    duration: Int
+    trackNumber: Int
+    isTitle: Boolean
+    musicVideoUrl: String
+  }
+
   input CreateMemberInput {
     name: String!
     koreanName: String
@@ -174,6 +236,22 @@ export const typeDefs = gql`
     position: [String!]
     artistId: ID!
     imageUrl: String
+  }
+
+  input UpdateMemberInput {
+    name: String
+    koreanName: String
+    stageName: String
+    birthDate: String
+    position: [String!]
+    imageUrl: String
+    isActive: Boolean
+  }
+
+  input UpdateUserInput {
+    username: String
+    email: String
+    profileImageUrl: String
   }
 
   input AddFavoriteInput {

@@ -297,6 +297,7 @@ nav {
 /* Artist Cards */
 .artist-card {
   background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border: 1px solid var(--glass-border);
   border-radius: 1rem;
@@ -357,7 +358,7 @@ nav {
 
 .btn-secondary {
   background: var(--glass-bg);
-  backdrop-filter: blur(10px);
+  -webkit--backdrop-filter: blur(10px);
   border: 1px solid var(--glass-border);
   color: white;
 }
@@ -376,7 +377,7 @@ nav {
 .input-modern {
   width: 100%;
   background: var(--glass-bg);
-  backdrop-filter: blur(10px);
+  -webkit--backdrop-filter: blur(10px);
   border: 1px solid var(--glass-border);
   border-radius: 1rem;
   padding: 1rem 1.25rem;
@@ -523,7 +524,7 @@ nav {
   top: 2rem;
   right: 2rem;
   background: var(--glass-bg-heavy);
-  backdrop-filter: blur(20px);
+  -webkit--backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border-heavy);
   padding: 1rem 1.5rem;
   border-radius: 1rem;
@@ -575,7 +576,7 @@ nav {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(5px);
+  -webkit--backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -585,7 +586,7 @@ nav {
 
 .modal-content {
   background: var(--glass-bg-heavy);
-  backdrop-filter: blur(20px);
+  -webkit--backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border-heavy);
   border-radius: 2rem;
   padding: 2rem;
@@ -740,7 +741,10 @@ nav {
 .transition-transform { transition: transform var(--transition-fast); }
 
 .cursor-pointer { cursor: pointer; }
-.select-none { user-select: none; }
+.select-none { 
+  -webkit-user-select: none;
+  user-select: none; 
+}
 
 /* Responsive Utilities */
 @media (max-width: 768px) {

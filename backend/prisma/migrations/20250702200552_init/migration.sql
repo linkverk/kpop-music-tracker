@@ -1,5 +1,16 @@
--- CreateEnum
-CREATE TYPE "AlbumType" AS ENUM ('SINGLE', 'MINI_ALBUM', 'FULL_ALBUM', 'REPACKAGE', 'SPECIAL', 'JAPANESE', 'DIGITAL_SINGLE');
+-- AlbumType enum replacement for SQL Server: use a lookup table
+CREATE TABLE "AlbumType" (
+    "type" VARCHAR(32) NOT NULL PRIMARY KEY
+);
+
+INSERT INTO "AlbumType" ("type") VALUES
+('SINGLE'),
+('MINI_ALBUM'),
+('FULL_ALBUM'),
+('REPACKAGE'),
+('SPECIAL'),
+('JAPANESE'),
+('DIGITAL_SINGLE');
 
 -- CreateTable
 CREATE TABLE "artists" (
@@ -24,12 +35,12 @@ CREATE TABLE "members" (
     "korean_name" TEXT,
     "stage_name" TEXT NOT NULL,
     "birth_date" TIMESTAMP(3),
-    "position" TEXT[],
+    -- "position" TEXT[], -- Removed: use a separate table for positions
     "image_url" TEXT,
     "is_active" BOOLEAN NOT NULL DEFAULT true,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
-
+    "type" VARCHAR(32) NOT NULL,
     CONSTRAINT "members_pkey" PRIMARY KEY ("id")
 );
 
